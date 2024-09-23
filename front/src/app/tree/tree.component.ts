@@ -29,6 +29,7 @@ export class TreeComponent {
   @Input() data: SystemTree[] = [];
   @Output() openDialogAdd = new EventEmitter<SystemTree>();
   @Output() openDialogRemove = new EventEmitter<SystemTree>();
+  @Output() openDialogEdit = new EventEmitter<SystemTree>();
 
   /** The TreeControl controls the expand/collapse state of tree nodes.  */
   treeControl: FlatTreeControl<FlatTreeNode>;
@@ -104,8 +105,10 @@ export class TreeComponent {
     if (result) {
       if (addOrRemove == 'add') {
         this.openDialogAdd.emit(result);
-      } else if(addOrRemove === 'remove') {
+      } else if (addOrRemove === 'remove') {
         this.openDialogRemove.emit(result)
+      } else {
+        this.openDialogEdit.emit(result);
       }
     }
   }

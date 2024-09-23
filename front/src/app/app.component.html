@@ -1,10 +1,21 @@
-<div class="container-fluid">
+<mat-toolbar>
 
-  <button mat-icon-button aria-label="Add icon" (click)="openDialog(null)">
+  <h2>Sistema de Gerenciamento de arquivos virtuais</h2>
+  <span class="example-spacer"></span>
+  <button mat-icon-button aria-label="Add icon" (click)="openDialog(null)" title="Add file or folder" color="primary">
     <mat-icon>add</mat-icon>
   </button>
+</mat-toolbar>
+
+<div class="container my-3">
+
   @if(data.length>0){
-  <app-tree [data]="data" (openDialogAdd)="openDialog($event)" (openDialogRemove)="remove($event)"> </app-tree>
+  <app-tree [data]="data" (openDialogAdd)="openDialog($event)" (openDialogRemove)="remove($event)"
+    (openDialogEdit)="openDialog($event,true)"> </app-tree>
+  }@else {
+  <div class="alert alert-primary" role="alert">
+    Não há informações para serem exibidas no momento
+  </div>
   }
 </div>
 <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">

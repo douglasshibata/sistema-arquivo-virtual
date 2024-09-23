@@ -24,11 +24,35 @@ Instale front com npm
   cd front
   npm install front
 ```
+Instale as dependecias do backend com maven
 
+```bash  
+  cd desafio
+  ./mvnw clean package -DskipTests
+```
 
-## Executar
+## Executar o projeto localmente
 
-Para executar oprojeto rode o script bash e tenha o docker baixado
+Baixar o angular caso não tenha baixado
+```bash
+npm i -g @angular/cli
+```
+
+### Executar o Frontend
+```bash
+cd front
+ng serve -o
+```
+
+### Executar o backend
+```bash
+  cd desafio
+  ./mvnw spring-boot:run -DSPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/db_arquivos_virtuais
+  ```
+
+## Executar com docker
+
+Para executar o projeto rode o script bash e tenha o docker baixado
 
 ```bash
   ./build.sh

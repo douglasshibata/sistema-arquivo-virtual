@@ -5,6 +5,8 @@ services:
     # restart: unless-stopped
     depends_on:
      - postgres
+    environment:
+      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/db_arquivos_virtuais'      
   postgres:
     image: 'postgres:latest'
     environment:

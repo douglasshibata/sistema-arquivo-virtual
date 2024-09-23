@@ -1,5 +1,5 @@
 export const environment = {
 
-    baseURL: `http://${window.location.hostname}/api`
+    baseURL: `http://${window.location.host}/api`
 
 };

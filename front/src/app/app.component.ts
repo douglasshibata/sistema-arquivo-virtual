@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
 import { MatToolbar } from '@angular/material/toolbar';
@@ -15,7 +16,7 @@ import { TreeComponent } from "./tree/tree.component";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TreeComponent, MatToolbar, MatIcon, NgxSpinnerModule],
+  imports: [RouterOutlet, TreeComponent, MatToolbar, MatIcon, NgxSpinnerModule, MatButtonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -65,20 +66,26 @@ export class AppComponent {
     }));
   }
 
-  openDialog(node: SystemTree | null) {
-    this.dialog.open(DialogFormComponent).afterClosed().subscribe({
+  openDialog(node: SystemTree | null, isEditMode = false) {
+    this.dialog.open(DialogFormComponent, {
+      data: isEditMode ? node : null
+    }).afterClosed().subscribe({
       next: (res) => {
         if (res) {
           if (node) {
-            const obj: System = {
-              folder: node.type === 'folder',
-              id: node.id,
-              name: node.name,
-              nodeChild: this.getSystemStruct(node.children),
-              nodeParent: node.nodeParent
+            if (isEditMode) {
+              this.save(res);
+            } else {
+              const obj: System = {
+                folder: node.type === 'folder',
+                id: node.id,
+                name: node.name,
+                nodeChild: this.getSystemStruct(node.children),
+                nodeParent: node.nodeParent
+              }
+              obj.nodeChild.push(res);
+              this.save(obj);
             }
-            obj.nodeChild.push(res);
-            this.save(obj);
           } else {
             this.save(res);
           }

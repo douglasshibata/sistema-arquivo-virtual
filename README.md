@@ -15,8 +15,23 @@ exibir uma listagem de diretórios em um frontend básico
 
 **Database**: PostgreSQL
 
+## Executar com docker
 
-## Instalação
+Para executar o projeto rode o script bash e tenha o docker baixado
+
+```bash
+  ./build.sh
+```
+
+Caso queira utilizar o powershell pra rodar
+
+```ps1
+  .\build.ps1       
+```
+
+
+
+## Instalação Local
 
 Instale front com npm
 
@@ -50,22 +65,8 @@ ng serve -o
   ./mvnw spring-boot:run -DSPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/db_arquivos_virtuais
   ```
 
-## Executar com docker
 
-Para executar o projeto rode o script bash e tenha o docker baixado
-
-```bash
-  ./build.sh
-```
-
-Caso queira utilizar o powershell pra rodar
-
-```ps1
-  .\build.ps1       
-```
-
-
-## Autores
+## Autor
 
 - [@douglasshibata](https://www.github.com/douglasshibata)
 

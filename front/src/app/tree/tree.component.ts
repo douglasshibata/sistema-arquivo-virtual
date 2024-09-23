@@ -104,7 +104,7 @@ export class TreeComponent {
     if (result) {
       if (addOrRemove == 'add') {
         this.openDialogAdd.emit(result);
-      } else {
+      } else if(addOrRemove === 'remove') {
         this.openDialogRemove.emit(result)
       }
     }

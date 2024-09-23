@@ -5,6 +5,7 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
 import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from 'ngx-toastr';
+import { DialogConfirmComponent } from './dialog/dialog-confirm/dialog-confirm.component';
 import { DialogFormComponent } from './dialog/dialog-form/dialog-form.component';
 import { ResponseError } from './shared/models/response-error';
 import { System, SystemTree } from './shared/models/system';
@@ -24,7 +25,8 @@ export class AppComponent {
   spinner = inject(NgxSpinnerService);
   toastr = inject(ToastrService);
   data: SystemTree[] = [];
-  constructor() {
+  ngOnInit() {
+    this.data = [];
     this.getSystem();
   }
 
@@ -89,9 +91,9 @@ export class AppComponent {
     this.spinner.show();
     this.service.persist(system).subscribe({
       next: (res) => {
-        this.toastr.success('Salvo com sucesso');
-        console.log(res)
-        this.getSystem();
+        if (res)
+          this.toastr.success('Salvo com sucesso');
+        this.ngOnInit();
       },
       error: (err: ResponseError) => {
         console.error(err);
@@ -103,19 +105,24 @@ export class AppComponent {
   }
 
   remove(system: SystemTree) {
-    console.log(system)
-    this.spinner.show();
-    this.service.remove(system.id).subscribe({
-      next: () => {
-        this.toastr.success('Removido com sucesso');
-        this.getSystem();
-      },
-      error: (err: ResponseError) => {
-        console.error(err);
-        this.toastr.error(err.message);
-        this.spinner.hide();
-      },
-      complete: () => this.spinner.hide()
+    this.dialog.open(DialogConfirmComponent).afterClosed().subscribe({
+      next: (res) => {
+        if (res) {
+          this.spinner.show();
+          this.service.remove(system.id).subscribe({
+            next: () => {
+              this.toastr.success('Removido com sucesso');
+              this.ngOnInit();
+            },
+            error: (err: ResponseError) => {
+              console.error(err);
+              this.toastr.error(err.message);
+              this.spinner.hide();
+            },
+            complete: () => this.spinner.hide()
+          })
+        }
+      }
     })
   }
 }

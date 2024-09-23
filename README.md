@@ -26,11 +26,18 @@ Instale front com npm
 ```
 
 
-## Deploy
+## Executar
 
-Para fazer o deploy desse projeto rode
+Para executar oprojeto rode o script bash e tenha o docker baixado
 
 ```bash
+  ./build.sh
+```
+
+Caso queira utilizar o powershell pra rodar
+
+```ps1
+  .\build.ps1       
 ```
 
 

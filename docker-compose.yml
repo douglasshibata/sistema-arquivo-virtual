@@ -1,0 +1,32 @@
+name: desafio
+services:
+  app:
+    build: ./desafio/
+    # restart: unless-stopped
+    depends_on:
+     - postgres
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=db_arquivos_virtuais'
+      - 'POSTGRES_PASSWORD=postgres'
+      - 'POSTGRES_USER=postgres'
+    ports:
+      - '5432:5432'
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "80:80"
+    deploy:
+      resources:
+          limits:
+            cpus: 0.50
+            memory: 128M
+          reservations:
+            cpus: 0.25
+            memory: 128M
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    restart: unless-stopped
+    depends_on:
+      - app    

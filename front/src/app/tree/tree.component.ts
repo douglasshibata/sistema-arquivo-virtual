@@ -28,6 +28,7 @@ export interface FlatTreeNode {
 export class TreeComponent {
   @Input() data: SystemTree[] = [];
   @Output() openDialogAdd = new EventEmitter<SystemTree>();
+  @Output() openDialogRemove = new EventEmitter<SystemTree>();
 
   /** The TreeControl controls the expand/collapse state of tree nodes.  */
   treeControl: FlatTreeControl<FlatTreeNode>;
@@ -85,7 +86,7 @@ export class TreeComponent {
   getChildren(node: SystemTree): SystemTree[] | null | undefined {
     return node.children;
   }
-  openDialog(node: FlatTreeNode) {
+  openDialog(node: FlatTreeNode, addOrRemove = 'add') {
     const findObjectByIdRecursive: any = (lists: SystemTree[], id: number) => {
       for (const item of lists) {
         if (item.id === id) {
@@ -101,7 +102,11 @@ export class TreeComponent {
     };
     const result = findObjectByIdRecursive(this.dataSource.data, node.id);
     if (result) {
-      this.openDialogAdd.emit(result);
+      if (addOrRemove == 'add') {
+        this.openDialogAdd.emit(result);
+      } else {
+        this.openDialogRemove.emit(result)
+      }
     }
   }
 

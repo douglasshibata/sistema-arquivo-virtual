@@ -24,7 +24,7 @@ export class AppComponent {
   spinner = inject(NgxSpinnerService);
   toastr = inject(ToastrService);
   data: SystemTree[] = [];
-  ngOnInit() {
+  constructor() {
     this.getSystem();
   }
 
@@ -34,7 +34,6 @@ export class AppComponent {
       next: (res) => {
         const responseTree: SystemTree[] = this.getTreeStruct(res, null)
         this.data = responseTree;
-        console.log(responseTree)
       },
       error: (err: ResponseError) => {
         console.error(err);
@@ -92,7 +91,24 @@ export class AppComponent {
       next: (res) => {
         this.toastr.success('Salvo com sucesso');
         console.log(res)
-        this.ngOnInit();
+        this.getSystem();
+      },
+      error: (err: ResponseError) => {
+        console.error(err);
+        this.toastr.error(err.message);
+        this.spinner.hide();
+      },
+      complete: () => this.spinner.hide()
+    })
+  }
+
+  remove(system: SystemTree) {
+    console.log(system)
+    this.spinner.show();
+    this.service.remove(system.id).subscribe({
+      next: () => {
+        this.toastr.success('Removido com sucesso');
+        this.getSystem();
       },
       error: (err: ResponseError) => {
         console.error(err);

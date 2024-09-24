@@ -17,17 +17,12 @@ exibir uma listagem de diretórios em um frontend básico
 
 ## Executar com docker
 
-Para executar o projeto rode o script bash e tenha o docker baixado
+Para executar o projeto rode caso tenha o docker baixado
 
 ```bash
-  ./build.sh
+ docker compose up -d
 ```
 
-Caso queira utilizar o powershell pra rodar
-
-```ps1
-  .\build.ps1       
-```
 
 
 

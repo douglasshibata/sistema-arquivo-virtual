@@ -17,7 +17,7 @@ public class SystemManagerController {
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
     public ResponseEntity<Object> deleteByID(@PathVariable long id) {
-        service.remover(id);
+        service.remove(id);
         return ResponseEntity.ok().build();
     }
 

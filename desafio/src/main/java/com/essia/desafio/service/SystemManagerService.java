@@ -21,7 +21,7 @@ public class SystemManagerService {
         return systemManagerRepository.save(systemManager);
     }
 
-    public void remover(Long id) {
+    public void remove(Long id) {
         systemManagerRepository.deleteById(id);
     }
 

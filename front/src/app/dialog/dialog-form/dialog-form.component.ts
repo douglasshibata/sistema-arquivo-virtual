@@ -38,12 +38,12 @@ export class DialogFormComponent {
 
   onSubmit(): void {
     if (this.systemManagerForm.valid) {
-      this.dialogRef.close(this.systemManagerForm.value)
+      this.dialogRef.close(this.systemManagerForm.value);
     } else {
       if(this.systemManagerForm.controls.name.invalid){
         this.errorMessage.set('Preencha o nome');
       }
-      this.toast.warning('Preencha os campos obrigatórios')
+      this.toast.warning('Preencha os campos obrigatórios');
     }
   }
 }

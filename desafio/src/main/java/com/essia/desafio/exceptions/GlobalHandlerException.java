@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class GlobalHandlerException {
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ResponseError> tratarException(Exception ex, WebRequest request) {
+    public ResponseEntity<ResponseError> handleException(Exception ex, WebRequest request) {
         ResponseError responseError = new ResponseError(ex.getMessage(), HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value(), LocalDateTime.now(), request.getDescription(false));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseError);
     }

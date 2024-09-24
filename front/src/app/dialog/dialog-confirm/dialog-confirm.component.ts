@@ -13,7 +13,7 @@ import { MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, Mat
 export class DialogConfirmComponent {
   readonly dialogRef = inject(MatDialogRef<DialogConfirmComponent>);
 
-  remover(option: string) {    
+  remove(option: string) {    
     this.dialogRef.close(option);
   }
 }

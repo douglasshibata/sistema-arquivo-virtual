@@ -1,8 +1,8 @@
 name: desafio
 services:
   app:
-    build: ./desafio/
-    # restart: unless-stopped
+    image: douglasss/sistema-arquivo-virtual:1.0.0
+    restart: unless-stopped
     depends_on:
      - postgres
     environment:
